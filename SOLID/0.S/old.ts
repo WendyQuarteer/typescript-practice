@@ -1,4 +1,4 @@
-class Car {
+/*class Car {
     //it is convention to start property names in TypeScript with an underscore.
     // If you want to known why, remove the underscore and see if your compiler is throwing you an error!
     private _musicLevel : number = 0;
@@ -143,4 +143,4 @@ setInterval(() => {
         audioElement.play();
     }
 
-}, 1000);
+}, 1000);*/
