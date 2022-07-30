@@ -27,7 +27,7 @@ Where do you think we should place the fuel functionality?
 ### Extra challenge
 Make a new type of Engine that also consumes Fuel
 
-### MY PREPARATION
+## MY PREPARATION
 - Make sure I understand what a class is:
 
   * A class is actually nothing but air.  It's a plan in which we describe what we are going to make and what it is 
@@ -62,12 +62,12 @@ Make a new type of Engine that also consumes Fuel
 - Read and try to understand the provided links regarding this exercise SRP (Single Responsibility Principle) + 
 refactoring guru.
 
-### THE ACTUAL EXERCISE
+## THE ACTUAL EXERCISE
 I started over 3 times.  After all the main goal here is understanding.
 We started with a quite messy code that did what it was supposed to do but there was no sign of the single 
 responibility principle.  Everything was just put inside the car-class.  
 
-## MUSICPLAYER
+### MUSICPLAYER
 1. To change that.  I start by taking out everything related to the music player and give it its own class.  
 Because this has its own specific goal, which is to turn it on/off.  It will make things easier for the future when 
 we want to change the music player. Right? we don't need to change the whole car for that!
@@ -79,7 +79,7 @@ for example, will no longer work, since the car doesn't know anything about the 
 But, when we tell to go inside the car, look for the music-player, and then inside the music-player to look for the 
 musicLevel, it works!  Just like that: car.musicPlayer.musicLevel.
 
-## ENGINE
+### ENGINE
 I have to admit I do not now a lot about cars.  I do now how to drive, and I prefer not to do that in a "Flinstones" 
 way, So an engine it is.  And an engine needs fuel.  Oh God... this is where I need to crack my brains a bit more.
 because the fuel goes directly in the car, that's where ist's stored and... where o where shall I place 
@@ -96,7 +96,7 @@ as a new object inside the car-constructor.
 8. Same-o-same-o, a getter for the engine makes sure I can make the engine work inside the car.
 9. And then again those minor changes to lead the correct way for the functions to do their thingy.
 
-## TANK
+### TANK
 10. The engine won't work yet. It needs fuel.  Time to give a maximal-capacity to the tank and make sure it's for 
 fuel. And the weight of the car-class goes down again, as I move all tank related properties and methods out, into the
 tank-class.
@@ -106,12 +106,12 @@ tank-property to the engine-class and instatiate that one inside the constructor
 engine is already in the car, the car can also gets this done.  Niiiiiiice.
 13. The last changes inside the functions.. and that's that.
 
-## CAR
+### CAR
 14. The drive() method gives me an error.  Clearly it's because I'm trying to keep things private.  As I should.
 The adaptation of the fuel as wel as the miles, are methods that should live inside the appropriate classes.
 As I say, I do and now I can easily call those methods inside the drive()-method.
 
-## CLEAN-UP
+### CLEAN-UP
 16. I don't want any global variables if not necessary, so I look for functions that need a certain variable only
 once, and and paste it inside the functions.
 17. Also, I can now make some constants to remove the repeated text.
