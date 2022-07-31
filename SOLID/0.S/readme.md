@@ -83,8 +83,7 @@ musicLevel, it works!  Just like that: car.musicPlayer.musicLevel.
 I have to admit I do not now a lot about cars.  I do now how to drive, and I prefer not to do that in a "Flinstones" 
 way, So an engine it is.  And an engine needs fuel.  Oh God... this is where I need to crack my brains a bit more.
 because the fuel goes directly in the car, that's where ist's stored and... where o where shall I place 
-the fuel?  A car without an engine but with fuel, can't drive.  A car without fuel but with engine, can't drive.  
-Let's make a class for the engine, and a separate one for the fuel-tank then.
+the fuel?  A car without an engine but with fuel, can't drive.  A car without fuel but with engine, can't drive.  Let's make a class for the engine, and a separate one for the fuel-tank then.
 
 6. I make a class for the engine.  I can now change "engineStatus" in just "status" because the musicPlayer in no 
 longer in the way.  This will tell us if the engine is or is not running.  We also need to know the distance the engine 
@@ -115,6 +114,8 @@ As I say, I do and now I can easily call those methods inside the drive()-method
 16. I don't want any global variables if not necessary, so I look for functions that need a certain variable only
 once, and and paste it inside the functions.
 17. Also, I can now make some constants to remove the repeated text.
+
+moved drive to engine
 
 
 
