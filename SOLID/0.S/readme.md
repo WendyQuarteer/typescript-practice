@@ -61,6 +61,8 @@ Make a new type of Engine that also consumes Fuel
 
 - Read and try to understand the provided links regarding this exercise SRP (Single Responsibility Principle) + 
 refactoring guru.
+  * A CLASS OR A METHOD SHOULD DO ONE THING, ONE THING ONLY!
+![img.png](img.png)
 
 ## THE ACTUAL EXERCISE
 I started over 3 times.  After all the main goal here is understanding.
