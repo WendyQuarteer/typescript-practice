@@ -1,4 +1,4 @@
-class Dog {
+/*class Dog {
     private _name;
 
     set name(value) {
@@ -77,4 +77,4 @@ zoo.addAnimal(new Parrot);
 
 zoo.animals.forEach((animal) => {
     document.querySelector('#target').innerHTML += (animal.type + ": " + zoo.makeSound(animal) + "<br>");
-});
+});*/

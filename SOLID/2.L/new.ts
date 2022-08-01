@@ -1,33 +1,42 @@
-/*//This is called a Union, the discountType can only contain the following 2 values:
-type discountType = "variable" | "fixed" | "none";
+//type discountType = "variable" | "fixed" | "none";//This is called a Union, the discountType can only contain the following 2 values:
+interface DiscountMethod {
 
+}
+///-----VARIABLE-DISCOUNT-----///
+class VariableDiscount extends Discount{
+
+    apply(price : number) : number {
+    else if(this._type === "variable")  {
+            return (price - (price * this._value / 100));
+    }
+}
+///-----FIXED-DISCOUNT-----//
+class FixedDiscount extends Discount{
+
+    apply(price : number) : number {
+    return Math.max(0, price - this._value);
+}
+
+
+///-----NO-DISCOUNT-----///
+class NoDiscount extends Discount{
+
+apply(price : number) : number {
+        return price;
+}
+///-----DISCOUNT-----///
 class Discount {
-    private _type: discountType;
+    //PROPERTIES:
     private _value: number;
-
-    constructor(type : discountType, value : number = 0) {
-        this._type = type;
+    //CONSTRUCTOR:
+    constructor(value : number = 0) {
         this._value = value;
-
-        if(this._type != 'none' && value <= 0) {
-            throw new Error('You cannot create a '+ this._type + ' discount with a negative value');
-        }
     }
 
+    //METHODS:
     apply(price : number) : number {
         //@todo: instead of using magic values as string in this, it would be a lot better to
         // change them into constant. This would protect us from misspellings. Can you improve this?
-        if(this._type === "none")  {
-            return price;
-        }
-        else if(this._type === "variable")  {
-            return (price - (price * this._value / 100));
-        } else if(this._type === "fixed") {
-            return Math.max(0, price - this._value);
-        }
-        else {
-            throw new Error('Invalid type of discount');
-        }
     }
 
     showCalculation(price : number) : string {
@@ -44,18 +53,19 @@ class Discount {
         }
     }
 }
-
+///-----PRODUCT-----///
 class Product {
+    //PROPERTIES:
     private _name : string;
     private _price : number;
     private _discount : Discount;
-
+    //CONSTRUCTOR:
     constructor(name: string, price: number, discount: Discount) {
         this._name = name;
         this._price = price;
         this._discount = discount;
     }
-
+    //GETTERS:
     get name(): string {
         return this._name;
     }
@@ -67,7 +77,7 @@ class Product {
     get originalPrice(): number {
         return this._price;
     }
-
+    //METHODS:
     //The reason we call this function "calculateX" instead of using a getter on Price is because names
     // communicate a lot of meaning between programmers.
     //most programmers would assume a getPrice() would be a simple display of a property that is already
@@ -80,20 +90,21 @@ class Product {
         return this._discount.showCalculation(this._price);
     }
 }
-
+///-----SHOPPINGBASKET-----///
 class shoppingBasket {
+    //PROPERTIES:
     //this array only accepts Product objects, nothing else
     private _products: Product[] = [];
-
+    //GETTERS:
     get products(): Product[] {
         return this._products;
     }
-
+    //METHODS:
     addProduct(product: Product) {
         this._products.push(product);
     }
 }
-
+///-----FUNCTIONS-----///
 let cart = new shoppingBasket();
 cart.addProduct(new Product('Chair', 25, new Discount("fixed", 10)));
 //cart.addProduct(new Product('Chair', 25, new Discount("fixed", -10)));
@@ -121,4 +132,4 @@ cart.products.forEach((product) => {
     tr.appendChild(td);
 
     tableElement.appendChild(tr);
-});*/
+});
