@@ -1,11 +1,4 @@
-///-----MUSIC-PLAYER-----//
-
-///-----ENGINE-----///
-
-///-----TANK-----///
-
-///-----CAR-----///
-import Car from "./src/Car";
+import Car from "./Car";
 ///-----GLOBAL-VARIABLES-----///
 const fuelLevelElement = <HTMLElement>document.querySelector('#fuel-level');
 const musicToggleElement = <HTMLElement>document.querySelector('#music-toggle');

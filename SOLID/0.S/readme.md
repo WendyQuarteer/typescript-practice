@@ -115,7 +115,22 @@ As I say, I do and now I can easily call those methods inside the drive()-method
 once, and and paste it inside the functions.
 17. Also, I can now make some constants to remove the repeated text.
 
-moved drive to engine
+moved drive() to engine because this function only relays on the Tank and Engine.
+
+!FAILLED ATTEMPT!
+- gave each class a separate file + added export default.
+- imported Tank into Engine
+- imported Musicplayer & Engine into Car
+- imported Car into new.ts
+
+
+
+
+
+
+
+
+
 
 
 
