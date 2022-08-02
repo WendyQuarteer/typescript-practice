@@ -119,7 +119,6 @@ once, and and paste it inside the functions.
 
 moved drive() to engine because this function only relays on the Tank and Engine.
 
-!FAILLED ATTEMPT!
 - gave each class a separate file + added export default.
 - imported Tank into Engine
 - imported Musicplayer & Engine into Car

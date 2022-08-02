@@ -1,42 +1,50 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const Tank_1 = __importDefault(require("./Tank"));
-class Engine {
-    constructor() {
+import Tank from "./Tank";
+var Engine = /** @class */ (function () {
+    function Engine() {
         this._status = false; //changed the name EngineStatus into status
         this._miles = 0;
         this.FUEL_MILEAGE = 10; //the distance, measured in miles, that an engine can work depending on the amount of fuel.
-        this._tank = new Tank_1.default(60); //instantiate Tank.
+        this._tank = new Tank(60); //instantiate Tank.
     }
     //METHODS:
-    turnEngineOn() {
+    Engine.prototype.turnEngineOn = function () {
         this._status = true;
-    }
-    turnEngineOff() {
+    };
+    Engine.prototype.turnEngineOff = function () {
         this._status = false;
-    }
-    addMiles() {
+    };
+    Engine.prototype.addMiles = function () {
         this._miles += this.FUEL_MILEAGE;
-    }
-    drive() {
+    };
+    Engine.prototype.drive = function () {
         if (this.status === false || this.tank.fuel <= 0) { //what I am doing here is a good principle called "failing early"
             return;
         }
         this.tank.removeFuel();
         this.addMiles();
-    }
-    //GETTERS:
-    get tank() {
-        return this._tank;
-    }
-    get miles() {
-        return this._miles;
-    }
-    get status() {
-        return this._status;
-    }
-}
-exports.default = Engine;
+    };
+    Object.defineProperty(Engine.prototype, "tank", {
+        //GETTERS:
+        get: function () {
+            return this._tank;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Engine.prototype, "miles", {
+        get: function () {
+            return this._miles;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Engine.prototype, "status", {
+        get: function () {
+            return this._status;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return Engine;
+}());
+export default Engine;
