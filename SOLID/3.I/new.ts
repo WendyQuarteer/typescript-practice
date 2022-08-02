@@ -1,19 +1,23 @@
-"use strict";
-/*interface UserAuth {
-    checkPassword(password: string) : boolean;
+interface Password {
+    checkPassword(password: string): boolean;
     resetPassword();
-    setGoogleToken(token : string);
-    checkGoogleLogin(token : string) : boolean;
+}
+interface Google {
+    setGoogleToken(token: string);
+    checkGoogleLogin(token: string): boolean;
+}
+interface Facebook {
     setFacebookToken(token : string);
     getFacebookLogin(token : string) : boolean;
 }
-
-class User implements UserAuth {
+///-----USER-----///
+class User implements Password, Google, Facebook {
     private _password : string = 'user';
     private _facebookToken : string;
     private _googleToken : string;
 
-    //Interesting detail here: while I did not define a return type or param type, any deviation from the interface will give you an error.
+    //Interesting detail here: while I did not define a return type or param type,
+    // any deviation from the interface will give you an error.
     // Test it out by uncommenting the code below.
     checkGoogleLogin(token) {
         // return "this will not work";
@@ -40,38 +44,30 @@ class User implements UserAuth {
         this._password = prompt('What is your new password?');
     }
 }
-
-//admin cannot use google or facebook token
-class Admin implements UserAuth {
+///-----ADMIN-----///
+class Admin implements Password {
     private _password : string = 'admin';
-
-    checkGoogleLogin(token: string): boolean {
-        return false;
-    }
-
+    //METHODS:
     checkPassword(password: string): boolean {
         return (password === this._password);
     }
-
-    getFacebookLogin(token: string): boolean {
-        return false;
-    }
-
-    setFacebookToken() {
-        throw new Error('Function not supported for admins');
-    }
-
-    setGoogleToken() {
-        throw new Error('Function not supported for admins');
-    }
-
     resetPassword() {
         this._password = prompt('What is your new password?');
     }
 }
-
-// class GoogleBot implements UserAuth {}
-
+///-----GOOGLEBOT-----///
+class GoogleBot implements Google {
+    private _googleToken: string;
+    //METHODS:
+    setGoogleToken(token : string) {
+        this._googleToken = token;
+    }
+    checkGoogleLogin(token) {
+        // return "this will not work";
+        return (token === this._googleToken);
+    }
+}
+///-----FUNCTIONS-----///
 const passwordElement = <HTMLInputElement>document.querySelector('#password');
 const typePasswordElement = <HTMLInputElement>document.querySelector('#typePassword');
 const typeGoogleElement = <HTMLInputElement>document.querySelector('#typeGoogle');
@@ -81,6 +77,7 @@ const resetPasswordElement = <HTMLAnchorElement>document.querySelector('#resetPa
 
 let guest = new User;
 let admin = new Admin;
+let googleBot = new GoogleBot();
 
 document.querySelector('#login-form').addEventListener('submit', (event) => {
     event.preventDefault();
@@ -115,8 +112,8 @@ document.querySelector('#login-form').addEventListener('submit', (event) => {
 });
 
 resetPasswordElement.addEventListener('click', (event) => {
-   event.preventDefault();
+    event.preventDefault();
 
-   let user = loginAsAdminElement.checked ? admin : guest;
-   user.resetPassword();
-});*/ 
+    let user = loginAsAdminElement.checked ? admin : guest;
+    user.resetPassword();
+});

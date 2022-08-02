@@ -44,6 +44,7 @@ interface CanFly {
 Go into [old.ts](old.ts) and look at the 2 different users. They have a couple of authentication methods but like you 
 can see, Admin users can only login with a password, not with facebook or google because of security reasons.
 Refactor the current fat interface so each auth method has each own interface.
+
 As an extra difficulty, there is a feature request for a google bot to be able to login on the site, he can only use 
 the google option to log in. Can you make this extra class?
 
@@ -59,5 +60,14 @@ single responsibility principle.
 
 ## THE ACTUAL EXERCISE:
 ### STEP 1:
+2 Different users: User & Admin and a 3th one on its way: GoogleBot.  They don't use the same methods, 
+so 1 interface for all, can't be the way to. We shouldn't force our interface implementations to implement methods 
+they don't use.
+1. Make one interface for password only, containing purely methods for the pasword.  Implemented by User, Admin
+2. Make one interface for Google only, containing purely methods for Google.  Implemented by User, GoogleBot
+3. Make one interface for Facebook only, containing purely methods for the password.   Implemented by User
+4. Now I can remove the methods that the Admin was forced upon (Google & Facebook).
+5. Create a new class called GoogleBot and make sure it implements the Google-interface only. Instantiate it.
+6. 
 
 ### STEP 2:
