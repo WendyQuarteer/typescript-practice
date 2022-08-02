@@ -1,53 +1,53 @@
 "use strict";
+///-----DISCOUNT-----///
+class Discount {
+    constructor(value = 0) {
+        this._value = value;
+    }
+}
 ///-----VARIABLE-DISCOUNT-----///
 class VariableDiscount extends Discount {
+    constructor(value) {
+        super(value);
+    }
+    //METHODS:
+    //@todo: instead of using magic values as string in this, it would be a lot better to
+    // change them into constant. This would protect us from misspellings. Can you improve this?
     apply(price) {
-        if (this._type === "variable") {
-            return (price - (price * this._value / 100));
-        }
+        return (price - (price * this._value / 100));
+    }
+    showCalculation(price) {
+        return price + " € -  " + this._value + "%";
     }
 }
 ///-----FIXED-DISCOUNT-----//
 class FixedDiscount extends Discount {
+    constructor(value) {
+        super(value);
+    }
+    //METHODS:
     apply(price) {
         return Math.max(0, price - this._value);
+    }
+    showCalculation(price) {
+        return price + "€ -  " + this._value;
     }
 }
 ///-----NO-DISCOUNT-----///
 class NoDiscount extends Discount {
-    apply(price) {
-        return price;
-    }
-}
-///-----DISCOUNT-----///
-class Discount {
-    //CONSTRUCTOR:
-    constructor(value = 0) {
-        this._value = value;
+    constructor(value) {
+        super(value);
     }
     //METHODS:
     apply(price) {
-        //@todo: instead of using magic values as string in this, it would be a lot better to
-        // change them into constant. This would protect us from misspellings. Can you improve this?
+        return price;
     }
-    showCalculation(price) {
-        if (this._type === "none") {
-            return "No discount";
-        }
-        else if (this._type === "variable") {
-            return price + " € -  " + this._value + "%";
-        }
-        else if (this._type === "fixed") {
-            return price + "€ -  " + this._value + "€ (min 0 €)";
-        }
-        else {
-            throw new Error('Invalid type of discount');
-        }
+    showCalculation() {
+        return "No discount";
     }
 }
 ///-----PRODUCT-----///
 class Product {
-    //CONSTRUCTOR:
     constructor(name, price, discount) {
         this._name = name;
         this._price = price;
@@ -78,9 +78,7 @@ class Product {
 ///-----SHOPPINGBASKET-----///
 class shoppingBasket {
     constructor() {
-        //PROPERTIES:
-        //this array only accepts Product objects, nothing else
-        this._products = [];
+        this._products = []; //this array only accepts Product objects, nothing else
     }
     //GETTERS:
     get products() {
@@ -93,10 +91,10 @@ class shoppingBasket {
 }
 ///-----FUNCTIONS-----///
 let cart = new shoppingBasket();
-cart.addProduct(new Product('Chair', 25, new Discount("fixed", 10)));
+cart.addProduct(new Product('Chair', 25, new FixedDiscount(10)));
 //cart.addProduct(new Product('Chair', 25, new Discount("fixed", -10)));
-cart.addProduct(new Product('Table', 50, new Discount("variable", 25)));
-cart.addProduct(new Product('Bed', 100, new Discount("none")));
+cart.addProduct(new Product('Table', 50, new VariableDiscount(25)));
+cart.addProduct(new Product('Bed', 100, new NoDiscount(0)));
 const tableElement = document.querySelector('#cart tbody');
 cart.products.forEach((product) => {
     let tr = document.createElement('tr');

@@ -24,16 +24,28 @@ it instead of the main class. Otherwise, it means that inheritance has been impl
 ![img.png](img.png)
 
 ## THE ACTUAL EXERCISE:
-Oelalalalalaaa!!!! This one looks more complicated.
 1. I have 3 classes: Discount, Product, ShoppingBasket.  
    * Discount needs to be refactored in 3 different classes: "VariableDiscount" & "FixedDiscount" & "NoDiscount". So I
    guess I'll start off, creating those.  They will each extend from the Discount-class.
-2. Now, I need an interface, which will be used by these newly born classes.  I'll call it DiscountType.  I know, I know
-that name is used already.  But I have A feeling that won't last long.  If I'm wrong, I'll come back and change it.
+2. Now, I need an interface, which will be used by these newly born classes.  I'll call it "DiscountMethods".
 3. Inside the Discount-class we no longer need the type.  So this one we can class vertically (remove).
 4. And then I start moving, without any further, the things that apply to the extended discount-classes.
 5. Now it is time to check what exactly I moved and clean it out.  The if's and else-if's can go, "adios aligos".  
-The same with the throw error's.  Also, the variable called discountType, the Union-thingy... with the different 
-discount-options can go.  So I was right in number 2.  Feels good!
+The same with the throw error's.  Feels good!
 6. I was thought that if you break something that doesn't belong to you.  You fix it, or you replace it.  Time to
-build it back up, then.  Thinking out loud: "All children wil automatically inherit the _value from it's parent".
+build it back up, then.  Thinking out loud: "All children wil automatically inherit the _value from its parent".
+At the moment my Typescript is complaining, it doesn't know value.  Meaning Its time to give them a constructor.
+What is super()?  That's new.  Google, here I come...  "The super call must supply all the parameters from the 
+parent-class.  The super keyword can be used in two ways: as a "function call" (super(...args)), or as a
+"property lookup" (super.prop and super[expr])." And the complaining is over.
+7. The apply and showCalculation methods are still unknown.  That's where the interface I created comes in.
+8. What's done is done.  The young classes are ready to be used.
+9. At this point, there's just a few complains left: 
+   - the product-class doesn't know the apply() and showCalcultion():  The property discount is now no longer a genaral 
+   discount.  It is also not possible to sum up the different kinds of discounts.  What I can do is use the interface: 
+   DiscountMethods which is used in all of them.
+   - tableElement is possibly null:  A cast is needed here.  Calling it a tableElement is not enough here.  Because, who
+   can be sure this is effectively a table-element?  Adding: <HTMLTableElement>, makes the complaint disappear.
+     * Type casting allows you to convert a variable from one type to another.
+     * Use the as keyword or <> operator for type castings.
+   Now that I'm error-free... time to move on to the Interface Segregation Principle.
