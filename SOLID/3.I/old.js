@@ -1,5 +1,6 @@
 "use strict";
-/*interface UserAuth {
+/*
+interface UserAuth {
     checkPassword(password: string) : boolean;
     resetPassword();
     setGoogleToken(token : string);
@@ -119,4 +120,4 @@ resetPasswordElement.addEventListener('click', (event) => {
 
    let user = loginAsAdminElement.checked ? admin : guest;
    user.resetPassword();
-});*/ 
+});*/

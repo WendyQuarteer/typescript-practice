@@ -3,6 +3,8 @@
 class User {
     constructor() {
         this._password = 'user';
+        this._facebookToken = '';
+        this._googleToken = '';
     }
     //Interesting detail here: while I did not define a return type or param type,
     // any deviation from the interface will give you an error.
@@ -43,54 +45,70 @@ class Admin {
 ///-----GOOGLEBOT-----///
 class GoogleBot {
     //METHODS:
-    setGoogleToken(token) {
-        this._googleToken = token;
-    }
     checkGoogleLogin(token) {
         // return "this will not work";
         return (token === this._googleToken);
     }
+    setGoogleToken(token) {
+        this._googleToken = token;
+    }
 }
-///-----FUNCTIONS-----///
+///-----MAIN-----///
 const passwordElement = document.querySelector('#password');
 const typePasswordElement = document.querySelector('#typePassword');
 const typeGoogleElement = document.querySelector('#typeGoogle');
 const typeFacebookElement = document.querySelector('#typeFacebook');
 const loginAsAdminElement = document.querySelector('#loginAsAdmin');
+const loginAsGoogleBotElement = document.querySelector('#loginAsGoogleBot');
 const resetPasswordElement = document.querySelector('#resetPassword');
-let guest = new User;
-let admin = new Admin;
+const loginElement = document.querySelector('#login-form');
+let guest = new User();
+let admin = new Admin();
 let googleBot = new GoogleBot();
-document.querySelector('#login-form').addEventListener('submit', (event) => {
+loginElement.addEventListener('submit', (event) => {
+    console.log('piep');
     event.preventDefault();
-    let user = loginAsAdminElement.checked ? admin : guest;
-    if (!loginAsAdminElement.checked) {
-        user.setGoogleToken('secret_token_google');
-        user.setFacebookToken('secret_token_fb');
+    //debugger;
+    const choosePassword = typePasswordElement.checked;
+    const chooseFacebook = typeFacebookElement.checked;
+    const chooseGoogle = typeGoogleElement.checked;
+    let user = (loginAsAdminElement.checked) ? admin : (loginAsGoogleBotElement.checked) ? googleBot : guest;
+    function adminLogIn() {
+        if (user === admin && choosePassword) {
+            user.checkPassword(passwordElement.value);
+        }
+        else if (user === admin && chooseGoogle || chooseFacebook) {
+            alert("Admin can only sign it with password!");
+        }
     }
-    debugger;
-    let auth = false;
-    switch (true) {
-        case typePasswordElement.checked:
-            auth = user.checkPassword(passwordElement.value);
-            break;
-        case typeGoogleElement.checked:
-            auth = user.checkGoogleLogin('secret_token_google');
-            break;
-        case typeFacebookElement.checked:
-            debugger;
-            auth = user.getFacebookLogin('secret_token_fb');
-            break;
+    function googleBotLogIn() {
+        if (user === googleBot && chooseGoogle) {
+            user.checkGoogleLogin('secret_token_google');
+        }
+        else if (user === googleBot && chooseFacebook || choosePassword) {
+            alert("GoogleBot can only sign it with Google!");
+        }
     }
-    if (auth) {
+    function guestLogIN() {
+        if (user === guest && choosePassword) {
+            user.checkPassword(passwordElement.value);
+        }
+        else if (user === guest && chooseGoogle) {
+            user.checkGoogleLogin('secret_token_google');
+        }
+        else if (user === guest && choosePassword) {
+            user.checkGoogleLogin('secret_token_fb');
+        }
+    }
+    if (user) {
         alert('login success');
     }
     else {
         alert('login failed');
     }
-});
-resetPasswordElement.addEventListener('click', (event) => {
-    event.preventDefault();
-    let user = loginAsAdminElement.checked ? admin : guest;
-    user.resetPassword();
+    resetPasswordElement.addEventListener('click', (event) => {
+        event.preventDefault();
+        let user = loginAsAdminElement.checked ? admin : guest;
+        user.resetPassword();
+    });
 });

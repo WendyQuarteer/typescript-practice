@@ -68,6 +68,8 @@ they don't use.
 3. Make one interface for Facebook only, containing purely methods for the password.   Implemented by User
 4. Now I can remove the methods that the Admin was forced upon (Google & Facebook).
 5. Create a new class called GoogleBot and make sure it implements the Google-interface only. Instantiate it.
-6. 
+6. Add an html checkbox for googleBot to log-in.
+7. Add a constant with the new html-element as value.
+8. Make logIn-functions for each, using if-statements.
 
 ### STEP 2:
