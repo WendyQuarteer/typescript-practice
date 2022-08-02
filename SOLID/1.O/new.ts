@@ -127,7 +127,7 @@ zoo.addAnimal(new Cat('Mouse'));
 zoo.addAnimal(new Dog('Haruki'));
 zoo.addAnimal(new Parrot('Coco'));
 zoo.addAnimal(new Monkey('Chanel'));
-
+const target = <HTMLElement>document.querySelector('#target')
 zoo.animals.forEach((animal) => {
-    document.querySelector('#target').innerHTML += (animal.type + ": " + animal.makeSound(animal) + "<br>");
-});
+    target.innerHTML += (animal.type + ": " + animal.makeSound() + "<br>");
+})
