@@ -44,6 +44,9 @@ class Admin {
 }
 ///-----GOOGLEBOT-----///
 class GoogleBot {
+    constructor() {
+        this._googleToken = "";
+    }
     //METHODS:
     checkGoogleLogin(token) {
         // return "this will not work";
@@ -73,6 +76,9 @@ loginElement.addEventListener('submit', (event) => {
     const chooseFacebook = typeFacebookElement.checked;
     const chooseGoogle = typeGoogleElement.checked;
     let user = (loginAsAdminElement.checked) ? admin : (loginAsGoogleBotElement.checked) ? googleBot : guest;
+    adminLogIn();
+    googleBotLogIn();
+    guestLogIN();
     function adminLogIn() {
         if (user === admin && choosePassword) {
             user.checkPassword(passwordElement.value);

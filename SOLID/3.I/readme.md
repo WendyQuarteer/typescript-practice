@@ -56,20 +56,51 @@ small, separate dependencies?
 - Read and try to understand the provided links regarding this exercise ISP (Interface Segregation Principle).
 * THE USER OF THE INTERFACE SHOULD NOT BE FORCED TO RELY ON METHODS HE DOES NOT USE.  It is in line with the 
 single responsibility principle.
-![img.png](img.png)
+![img.png](img.png)https://accesto.com/blog/solid-php-solid-principles-in-php/
 
 ## THE ACTUAL EXERCISE:
+10 errors to begin with.  I need to ged rid of them asap, or they will keep following me!
+#### Fixing errors:
+- TS2531: Object is possibly 'null':  solved with a cast.
+```typescript
+const loginFormElement = <HTMLFormElement>document.querySelector('#login-form');
+```
+- TS7010: 'resetPassword', which lacks return-type annotation, implicitly has an 'any' return type.: solvable with a return type. Solved by adding a type.
+```typescript
+setGoogleToken(token : string) : void;
+```
+TS7006: Parameter 'token' implicitly has an 'any' type.: solved by adding a type.
+```typescript
+getFacebookLogin(token : string);
+```
+TS2564: Property '_googleToken' has no initializer and is not definitely assigned in the constructor. Solved by assiging an empty string.
+```typescript
+private _googleToken : string = '';
+```
+2 more errors to deal with.  They are pointing to the resetPassword().
+- TS2322: Type 'string | null' is not assignable to type 'string'.<br/>Type 'null' is not assignable to type 'string'.
+I simply added an exclamation mark. Needed to do some Googe-ling for that.  The exclamation mark is the non-null 
+assertion operator in TypeScript.  It removes null and undefined from a type without doing any explicit type checking.
+I basically tell TypeScript that this value will never be null or undefined. 
+```typescript
+resetPassword() {
+        this._password = prompt('What is your new password?')!;
+    }
+```
+Error free wiiiiiiiiiiiii... (for now).
+
+
 ### STEP 1:
 2 Different users: User & Admin and a 3th one on its way: GoogleBot.  They don't use the same methods, 
 so 1 interface for all, can't be the way to. We shouldn't force our interface implementations to implement methods 
 they don't use.
-1. Make one interface for password only, containing purely methods for the pasword.  Implemented by User, Admin
+1. Make one interface for User only, containing purely methods for the password.  Implemented by User, Admin
 2. Make one interface for Google only, containing purely methods for Google.  Implemented by User, GoogleBot
 3. Make one interface for Facebook only, containing purely methods for the password.   Implemented by User
 4. Now I can remove the methods that the Admin was forced upon (Google & Facebook).
 5. Create a new class called GoogleBot and make sure it implements the Google-interface only. Instantiate it.
 6. Add an html checkbox for googleBot to log-in.
 7. Add a constant with the new html-element as value.
-8. Make logIn-functions for each, using if-statements.
+
 
 ### STEP 2:

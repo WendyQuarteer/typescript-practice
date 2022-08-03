@@ -1,7 +1,7 @@
 interface Password {
     checkPassword(password: string): boolean;
 
-    resetPassword(password: string):string;
+    resetPassword():void;
 }
 
 interface Google {
@@ -25,7 +25,7 @@ class User implements Password, Google, Facebook {
 //Interesting detail here: while I did not define a return type or param type,
     // any deviation from the interface will give you an error.
     // Test it out by uncommenting the code below.
-    checkGoogleLogin(token) {
+    checkGoogleLogin(token: string) {
         // return "this will not work";
         return (token === this._googleToken);
     }
@@ -34,7 +34,7 @@ class User implements Password, Google, Facebook {
         this._googleToken = token;
     }
 
-    getFacebookLogin(token) {
+    getFacebookLogin(token: string) {
         return (token === this._facebookToken);
     }
 
@@ -47,7 +47,7 @@ class User implements Password, Google, Facebook {
     }
 
     resetPassword() {
-        this._password = prompt('What is your new password?');
+        this._password = prompt('What is your new password?')!;
     }
 }
 
@@ -61,16 +61,16 @@ class Admin implements Password {
     }
 
     resetPassword() {
-        this._password = prompt('What is your new password?');
+        this._password = prompt('What is your new password?')!;
     }
 }
 
 ///-----GOOGLEBOT-----///
 class GoogleBot implements Google {
-    private _googleToken: string;
+    private _googleToken: string = "";
 
 //METHODS:
-    checkGoogleLogin(token) {
+    checkGoogleLogin(token: string) {
         // return "this will not work";
         return (token === this._googleToken);
     }
@@ -104,6 +104,9 @@ loginElement.addEventListener('submit', (event) => {
     const chooseGoogle = typeGoogleElement.checked;
 
     let user = (loginAsAdminElement.checked) ? admin : (loginAsGoogleBotElement.checked) ? googleBot : guest;
+adminLogIn()
+    googleBotLogIn()
+    guestLogIN()
 
     function adminLogIn() {
         if (user === admin && choosePassword) {
